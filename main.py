@@ -3,9 +3,13 @@ import random
 
 import requests
 
+from login import GHLogin
 from utils import read
+from dotenv import load_dotenv
 
-def update_status(status: str, emoji: str):
+load_dotenv()
+
+def update_gh_status(status: str, emoji: str):
     query = read('update_status.gql')
 
     url = 'https://api.github.com/graphql'
@@ -14,7 +18,7 @@ def update_status(status: str, emoji: str):
         'query': query,
         'variables': {
             "msg": status,
-            "emoji": emoji
+            "emoji": f':{emoji}:'
         }
     }
 
@@ -25,16 +29,17 @@ def update_status(status: str, emoji: str):
 
     response = requests.post(url, json=data, headers=headers)
 
-    if response.status_code == 200:
-        print(response.json())
-    else:
+    if response.status_code != 200:
         print('Request failed with status code:', response.status_code)
-        print(response.json())
+
+    print(response.json())
 
 
 if __name__ == '__main__':
+    token = GHLogin().token
+
     topics = ' '.join(sys.argv[1:])
 
     emojis = 'mag', 'notebook', 'bulb', 'mortar_board', 'book'
 
-    update_status(topics, random.choice(emojis))
+    update_gh_status(f'Learning {topics}', random.choice(emojis))
