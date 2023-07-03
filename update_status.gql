@@ -1,4 +1,4 @@
-mutation($msg: String!, $emoji: String) {
+mutation($msg: String, $emoji: String) {
 	changeUserStatus(input: {message: $msg, emoji: $emoji}) {
     status {
       id
