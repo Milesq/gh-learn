@@ -1,4 +1,3 @@
-import sys
 from os import path
 
 def read(f_name: str):
