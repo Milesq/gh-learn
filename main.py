@@ -1,5 +1,6 @@
 import sys
 import random
+from datetime import datetime, timedelta
 
 import requests
 
@@ -18,7 +19,8 @@ def update_gh_status(status: str, emoji: str):
         'query': query,
         'variables': {
             "msg": status,
-            "emoji": f':{emoji}:'
+            "emoji": f':{emoji}:',
+            "expiresAt": (datetime.now() + timedelta(hours=2)).isoformat()
         }
     }
 
