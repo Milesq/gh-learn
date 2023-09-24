@@ -8,3 +8,4 @@ def read(f_name: str):
 
     with open(f_name, 'r') as f:
         return f.read()
+print('asdasdads')
