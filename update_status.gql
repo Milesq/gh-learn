@@ -1,5 +1,7 @@
-mutation($msg: String, $emoji: String, $expiresAt: DateTime) {
-	changeUserStatus(input: {message: $msg, emoji: $emoji, expiresAt: $expiresAt}) {
+mutation ($msg: String, $emoji: String, $expiresAt: DateTime) {
+  changeUserStatus(
+    input: { message: $msg, emoji: $emoji, expiresAt: $expiresAt }
+  ) {
     status {
       id
     }
