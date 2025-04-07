@@ -1,6 +1,7 @@
-from utils import read
 from os import environ, path
 import requests
+
+from .utils import read
 
 LOGIN_DEVICE_CODE_URL = 'https://github.com/login/device/code'
 ACCESS_TOKEN_URL = 'https://github.com/login/oauth/access_token'
@@ -47,6 +48,8 @@ class GHLogin:
             headers=headers
         ).json()
 
+        print(resp)
+
         self.token = resp.get('access_token')
 
         if not self.token:
@@ -57,7 +60,7 @@ class GHLogin:
         self.write_token()
 
     def write_token(self):
-        f_name = path.join(path.dirname(__file__), 'token')
+        f_name = path.join(path.dirname(), 'token')
 
         with open(f_name, 'w') as f:
             f.write(self.token)
