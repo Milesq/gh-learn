@@ -1,20 +1,14 @@
-from importlib.resources import files
-
 import requests
 import keyring
-from dotenv import dotenv_values
 
 from .exceptions import AuthenticationFailure
+from .config import GH_CLIENT_ID
 
 LOGIN_DEVICE_CODE_URL = 'https://github.com/login/device/code'
 ACCESS_TOKEN_URL = 'https://github.com/login/oauth/access_token'
 
 class GHLogin:
     def __init__(self):
-        dotenv_path = files('gh_learn').joinpath('.public.env')
-        config = dotenv_values(dotenv_path)
-
-        self.gh_client_id = config['GH_CLIENT_ID']
         self.token = self.read_token()
 
         if self.token is None:
@@ -26,7 +20,7 @@ class GHLogin:
 
     def login(self):
         data = {
-            'client_id': self.gh_client_id,
+            'client_id': GH_CLIENT_ID,
             'scope': 'user',
         }
 
@@ -51,7 +45,7 @@ class GHLogin:
 
     def __finish_login(self, device_code):
         data = {
-            'client_id': self.gh_client_id,
+            'client_id': GH_CLIENT_ID,
             'device_code': device_code,
             'grant_type': 'urn:ietf:params:oauth:grant-type:device_code'
         }
