@@ -15,8 +15,3 @@ dependencies = [
 
 [project.scripts]
 gh-learn = "gh_learn.gh_learn:main"
-
-[tool.hatch.build]
-include = [
-  "gql/*"
-]

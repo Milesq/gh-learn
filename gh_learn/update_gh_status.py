@@ -2,11 +2,10 @@ from datetime import datetime, timedelta
 
 import requests
 
-from .utils import read
+from .utils import get_asset
 
 def update_gh_status(token:str, status: str, emoji: str):
-    query = read('../gql/update_status.gql')
-
+    query = get_asset('gql/update_status.gql')
     url = 'https://api.github.com/graphql'
 
     data = {

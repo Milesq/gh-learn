@@ -1,14 +1,14 @@
 from os import environ, path
 import requests
 
-from .utils import read
+from .utils import get_asset
 
 LOGIN_DEVICE_CODE_URL = 'https://github.com/login/device/code'
 ACCESS_TOKEN_URL = 'https://github.com/login/oauth/access_token'
 
 class GHLogin:
     def __init__(self):
-        self.token = read('token')
+        self.token = get_asset('token')
         if self.token is None:
             self.login()
 

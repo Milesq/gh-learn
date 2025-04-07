@@ -1,8 +1,8 @@
 from os import path
+from importlib.resources import files
 
-def read(f_name: str):
-    f_name = path.join(path.dirname(__file__), f_name)
-
+def get_asset(f_name: str):
+    f_name = files('gh_learn').joinpath(f_name)
     if not path.isfile(f_name):
         return None
 
