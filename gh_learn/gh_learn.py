@@ -2,8 +2,8 @@ import sys
 import random
 from dotenv import load_dotenv
 
-from gh_learn.auth import GHLogin
-from gh_learn.update_gh_status import update_gh_status
+from .auth import GHLogin
+from .update_gh_status import update_gh_status
 
 load_dotenv()
 
