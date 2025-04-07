@@ -3,6 +3,7 @@ from datetime import datetime, timedelta
 import requests
 
 from .utils import get_asset
+from .exceptions import GHApiError
 
 def update_gh_status(token:str, status: str, emoji: str):
     query = get_asset('gql/update_status.gql')
@@ -23,6 +24,6 @@ def update_gh_status(token:str, status: str, emoji: str):
     response = requests.post(url, json=data, headers=headers)
 
     if response.status_code != 200:
-        print('Request failed with status code:', response.status_code)
+        raise GHApiError((response.status_code, response.json()))
 
     return response.json()
