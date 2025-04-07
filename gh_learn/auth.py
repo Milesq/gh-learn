@@ -21,7 +21,7 @@ class GHLogin:
             self.login()
 
     headers = {
-            'Accept': 'application/json'
+        'Accept': 'application/json'
     }
 
     def login(self):
