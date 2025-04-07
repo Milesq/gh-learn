@@ -8,11 +8,9 @@ from .exceptions import GHApiError, AuthenticationFailure
 
 def main():
     try:
-        token = GHLogin()
-
+        token = GHLogin().token
         topics = ' '.join(sys.argv[1:])
         print('Learning:', topics)
-
         emojis = 'mag', 'notebook', 'bulb', 'mortar_board', 'book'
 
         resp = update_gh_status(token, f'Learning {topics}', random.choice(emojis))

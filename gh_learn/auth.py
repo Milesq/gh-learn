@@ -1,10 +1,9 @@
-from os import path
 from importlib.resources import files
 
 import requests
+import keyring
 from dotenv import dotenv_values
 
-from .utils import get_asset
 from .exceptions import AuthenticationFailure
 
 LOGIN_DEVICE_CODE_URL = 'https://github.com/login/device/code'
@@ -16,7 +15,8 @@ class GHLogin:
         config = dotenv_values(dotenv_path)
 
         self.gh_client_id = config['GH_CLIENT_ID']
-        self.token = get_asset('token')
+        self.token = self.read_token()
+
         if self.token is None:
             self.login()
 
@@ -73,9 +73,9 @@ class GHLogin:
 
         self.write_token()
 
-
     def write_token(self):
-        f_name = path.join(path.dirname(), 'token')
+        keyring.set_password('dev.milesq.gh-learn', 'default', self.token)
 
-        with open(f_name, 'w') as f:
-            f.write(self.token)
+    def read_token(self):
+        return keyring.get_password('dev.milesq.gh-learn', 'default')
+
